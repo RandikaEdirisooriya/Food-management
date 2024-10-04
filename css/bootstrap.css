@@ -82,6 +82,29 @@ p {
   margin-top: 0;
   margin-bottom: 1rem;
 }
+/* Transparent dropdown */
+.navbar-nav .dropdown-menu {
+  background-color: rgba(255, 255, 255, 0.05); /* Slight transparency */
+  border: none;
+  box-shadow: none;
+}
+
+/* Dropdown text styling */
+.navbar-nav .dropdown-item {
+  color: #000;
+}
+
+.navbar-nav .dropdown-item:hover,
+.navbar-nav .dropdown-item:focus {
+  background-color: rgba(0, 0, 0, 0.1); /* Hover effect */
+}
+
+/* Active state for dropdown items */
+.navbar-nav .dropdown-item.active {
+  background-color: #FFC107FF; /* Bright yellow active background */
+  color: #000; /* Ensure text is black on yellow */
+}
+
 
 abbr[title],
 abbr[data-original-title] {
