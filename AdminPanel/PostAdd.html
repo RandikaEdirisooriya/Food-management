@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add New</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #edd01a;
+            height: calc(100vh - 200px)!important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Open Sans', sans-serif;
+
+            padding-left: 300px;
+            padding-top: 80px;
+            padding-right: 25px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #wrapper{
+            margin: auto;
+            background-color: #273f4a;
+            width: 100vw;
+            height: 100vh;
+            overflow: auto;
+        }
+
+        #header {
+            background-color: #edd01a;
+            color: black;
+            padding: 1em;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        #content {
+            padding-top: 1em;
+            padding-left: 2em;
+            padding-right: 2em;
+            padding-bottom: 1em;
+        }
+
+        #title {
+            color: rgba(255, 255, 255, 1);
+            background-color: transparent;
+            border-style: none;
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.37);
+            font-size: 1.05em;
+            font-weight:100;
+            margin-top:0.2em;
+            width: 100%;
+            padding-bottom: 0.5em;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #title:focus {
+            border-style: none;
+            border-bottom: 0.5px solid #edd01a;
+        }
+
+        #triangle-bottomright {
+            width: 0;
+            height: 0;
+            border-bottom: 7px solid #edd01a;
+            border-left: 7px solid transparent;
+            margin-left:calc(100% - 5px);
+            margin-top: -9px;
+            margin-bottom: 1.6em;
+        }
+
+        #editor {
+            background-color: #1b2f39;
+            height: calc(100vh - 300px);
+            color: white;
+            border: none;
+        }
+        .ql-container {
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+            font-size: 13px;
+            height: 100%;
+            margin: 0px;
+            position: relative;
+        }
+        .ql-snow * {
+            box-sizing: border-box;
+        }
+
+        .ql-editor {
+            box-sizing: border-box;
+            line-height: 1.42;
+            font-size:24px;
+            height: 100%;
+            outline: none;
+            overflow-y: auto;
+            padding: 12px 15px;
+            tab-size: 4;
+            -moz-tab-size: 4;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .ql-editor p, .ql-editor ol, .ql-editor ul, .ql-editor pre, .ql-editor blockquote, .ql-editor h1, .ql-editor h2, .ql-editor h3, .ql-editor h4, .ql-editor h5, .ql-editor h6 {
+            margin: 0;
+            padding: 0;
+            counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+        }
+        .ql-clipboard {
+            left: -100000px;
+            height: 1px;
+            overflow-y: hidden;
+            position: absolute;
+            top: 50%;
+        }
+        .ql-snow .ql-tooltip {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 0px 5px #ddd;
+            color: #444;
+            padding: 5px 12px;
+            white-space: nowrap;
+        }
+        .ql-snow .ql-tooltip {
+            position: absolute;
+            transform: translateY(10px);
+        }
+        .ql-snow .ql-hidden {
+            display: none;
+        }
+        .ql-snow .ql-tooltip a.ql-preview {
+            display: inline-block;
+            max-width: 200px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top;
+        }
+        .ql-snow .ql-tooltip a {
+            line-height: 26px;
+        }
+        .ql-snow .ql-tooltip a {
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .ql-snow a {
+            color: #06c;
+        }
+        .ql-snow .ql-tooltip input[type=text] {
+            display: none;
+            border: 1px solid #ccc;
+            font-size: 13px;
+            height: 26px;
+            margin: 0px;
+            padding: 3px 5px;
+            width: 170px;
+        }
+
+        #footer {
+            margin-top: 1em;
+        }
+
+        #footer-left {
+            float: left;
+        }
+
+        #footer-right {
+            float: right;
+        }
+
+        #footer-right button:last-child {
+            margin-right: 0px!important;
+            padding-right: 0px!important;
+
+        }
+
+        /* Buttons */
+
+        .btn {
+            border:none;
+            padding-left: 1em;
+            padding-right:1em;
+            padding-top:0.5em;
+            padding-bottom:0.5em;
+            font-size:1em;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: #edd01a;
+            color: black;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary:hover {
+            background-color: rgb(255, 70, 72);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-secondary:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .fa-trash-alt {
+            font-size: 1.3em;
+        }
+        /* File input */
+
+        .inputfile {
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+
+        .inputfile + label {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.4);
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .inputfile:focus + label,
+        .inputfile + label:hover {
+            color: rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+
+        }
+
+        .fa-paperclip {
+            transform: rotate(-45deg);
+        }
+
+        /* Page Footer */
+        #pageFooter {
+            position:fixed;
+            bottom:0em;
+            color: rgb(195, 147, 115);
+            font-weight:100;
+            background-color: #ffd1b2;
+            text-align: center;
+            width:100%;
+            padding-top: 0.5em;
+            padding-bottom: 0.5em;
+
+        }
+
+        #pageFooter a{
+            color: rgb(180, 122, 83);
+            text-decoration: none;
+            font-weight:300;
+            transition: 0.3s;
+        }
+
+        #pageFooter a:hover{
+            color: rgb(149, 99, 66);
+            text-decoration: none;
+            font-weight:300;
+        }
+
+        /* Quill toolbar */
+        .ql-toolbar{
+            background-color: #2d4a5a;
+            stroke: white;
+            text-align: center;
+            border:none!important;
+        }
+        .ql-align-center {
+            text-align: center;
+        }
+        .ql-align-right {
+            text-align: right;
+        }
+        .ql-align-left {
+            text-align: left;
+        }
+        
+
+        .ql-toolbar button {
+            margin-left: 10px;
+            margin-right: 10px;
+
+        }
+        .ql-snow .ql-fill,
+        .ql-snow .ql-stroke.ql-fill {
+            fill: white;
+        }
+
+        .ql-snow .ql-picker{
+            color:white;
+            font-size: 30px;
+        }
+        .ql-toolbar.ql-snow {
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+            padding: 8px;
+        }
+        .ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            float: left;
+            height: 24px;
+            padding: 3px 5px;
+            width: 28px;
+        }
+        .ql-snow .ql-formats:after {
+            clear: both;
+            content: '';
+            display: table;
+        }
+        .ql-toolbar.ql-snow .ql-formats {
+            margin-right: 15px;
+        }
+        .ql-snow .ql-formats {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .ql-snow.ql-toolbar:after, .ql-snow .ql-toolbar:after {
+            clear: both;
+            content: '';
+            display: table;
+        }
+
+        .ql-snow .ql-picker.ql-expanded .ql-picker-label .ql-stroke {
+            stroke: white;
+        }
+        .ql-snow .ql-toolbar.snow, .ql-snow .ql-stroke{
+            stroke:white;
+        }
+
+
+        .ql-snow.ql-toolbar button:hover .ql-fill,
+        .ql-snow .ql-toolbar button:hover .ql-fill,
+        .ql-snow.ql-toolbar button.ql-active .ql-fill,
+        .ql-snow .ql-toolbar button.ql-active .ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-label:hover .ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-label:hover .ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-item:hover .ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-item:hover .ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-fill,
+        .ql-snow.ql-toolbar button:hover .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar button:hover .ql-stroke.ql-fill,
+        .ql-snow.ql-toolbar button.ql-active .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar button.ql-active .ql-stroke.ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke.ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke.ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke.ql-fill,
+        .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill,
+        .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke.ql-fill {
+            fill: grey;
+        }
+        .ql-snow.ql-toolbar button:hover .ql-stroke,
+        .ql-snow .ql-toolbar button:hover .ql-stroke,
+        .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+        .ql-snow .ql-toolbar button.ql-active .ql-stroke,
+        .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke,
+        .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke,
+        .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+        .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke,
+        .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke,
+        .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke,
+        .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+        .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke,
+        .ql-snow.ql-toolbar button:hover .ql-stroke-mitter,
+        .ql-snow .ql-toolbar button:hover .ql-stroke-mitter,
+        .ql-snow.ql-toolbar button.ql-active .ql-stroke-mitter,
+        .ql-snow .ql-toolbar button.ql-active .ql-stroke-mitter,
+        .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke-mitter,
+        .ql-snow .ql-toolbar .ql-picker-label:hover .ql-stroke-mitter,
+        .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke-mitter,
+        .ql-snow .ql-toolbar .ql-picker-label.ql-active .ql-stroke-mitter,
+        .ql-snow.ql-toolbar .ql-picker-item:hover .ql-stroke-mitter,
+        .ql-snow .ql-toolbar .ql-picker-item:hover .ql-stroke-mitter,
+        .ql-snow.ql-toolbar .ql-picker-item.ql-selected .ql-stroke-mitter,
+        .ql-snow .ql-toolbar .ql-picker-item.ql-selected .ql-stroke-mitter {
+            stroke: grey;
+        }
+        .ql-editor.ql-blank::before {
+            color: rgba(255,99,71,0.6);
+        }
+
+        .noselect {
+            cursor: default;
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Safari */
+            -khtml-user-select: none; /* Konqueror HTML */
+            -moz-user-select: none; /* Old versions of Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+        }
+        img{
+            width: 500px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div id="header" class="noselect">
+        Add New Post
+    </div>
+    <div id="content">
+        <label for="title"></label><input id="title" type="text" placeholder="Your title here..."></input>
+        <div id="triangle-bottomright"></div>
+        <div id="editor" class="ql-container ql-snow">
+            <div class="ql-editor ql-blank" data-gramm="false" contenteditable="true">
+                <p><br></p>
+            </div>
+            <div class="ql-clipboard" contenteditable="true" tabindex="-1"></div>
+        </div>
+        <div id="footer">
+            <div id="footer-left">
+                <button class="btn btn-primary" onclick="post(this)">Post</button>
+                <input type="file" name="file" id="file" class="inputfile" accept="text/*, image/*" onchange="fileChange(this)" />
+                <label for="file"><i class="fas fa-paperclip"></i></label>
+            </div>
+            <div id="footer-right">
+                <button class="btn btn-secondary" onclick="trash()">
+                    <i class="far fa-trash-alt"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+    var toolbarOptions = [
+        ['bold', 'italic', 'underline'],
+        [{ align: '' }, { align: 'center' }, { align: 'right' }]
+    ];
+
+    var quill = new Quill('#editor', {
+        modules: {
+            toolbar: toolbarOptions
+        },
+        theme: 'snow'
+    });
+    function toaster(text, dur, dest) {
+        var duration = dur || 3000;
+        var destination = dest || undefined;
+
+        Toastify({
+            text: text ,
+            duration: duration,
+            newWindow: true,
+            destination: destination,
+            gravity: "bottom",
+            position: 'right',
+            // backgroundColor: "rgba(0, 0, 0, 0.73)",
+            backgroundColor: "#4BB543",
+            stopOnFocus: true,
+        }).showToast();
+    }
+
+    function trash() {
+        document.querySelector('#title').value = '';
+        quill.setText('');
+        toaster('Trashed!!!');
+    }
+
+    function post(e) {
+        e.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        setTimeout(function() {
+            e.innerHTML = 'Post';
+            toaster('posted!!!' );
+        }, 1000);
+    }
+    function fileChange(input) {
+        var file = input.files[0];
+        if (!file) return; // Exit if no file is selected
+
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+            if (file.type.startsWith("image/")) {
+                // Ensure a valid selection range in Quill
+                var range = quill.getSelection();
+                if (!range) {
+                    range = { index: quill.getLength(), length: 0 }; // Insert at the end if no selection
+                }
+                quill.insertEmbed(range.index, 'image', event.target.result); // Insert image
+            } else if (file.type.startsWith("text/")) {
+                // Set editor text content for text files
+                document.querySelector('#title').value = file.name; // Set file name as title
+                quill.setText(event.target.result);
+            } else {
+                alert("File type not supported!"); // Unsupported file alert
+            }
+        };
+
+        // Check file type and read accordingly
+        if (file.type.startsWith("image/")) {
+            reader.readAsDataURL(file);  // Read image as Base64 URL
+        } else if (file.type.startsWith("text/")) {
+            reader.readAsText(file);     // Read text as plain text
+        }
+    }
+</script>
+</body>
+
+</html>
